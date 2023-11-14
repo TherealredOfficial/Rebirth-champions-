@@ -1,0 +1,61 @@
+local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+local Window = Library.CreateLib("Mystic.Lua", "Ocean")
+
+local autoclickerEnabled = false
+local rebirthLoopEnabled = false
+
+-- main
+local Main = Window:NewTab("Main")
+local MainSection = Main:NewSection("Main")
+
+local autoclickerToggle = MainSection:NewToggle("AutoClicker", "AutoClicks", function(state)
+    autoclickerEnabled = state
+    if state then
+        AutoClick()
+    end
+end)
+
+function AutoClick()
+    while autoclickerEnabled do
+        local ReplicatedStorage = game:GetService("ReplicatedStorage")
+        local Events = ReplicatedStorage:WaitForChild("Events")
+        local Click3 = Events:WaitForChild("Click3")
+
+        Click3:FireServer()
+        wait(0.1) -- Adjust the wait time as needed
+    end
+end
+
+local autoRebirthToggle = MainSection:NewToggle("Auto Rebirth", "Auto Rebirths", function(state)
+    rebirthLoopEnabled = state
+
+    if state then
+        local rebirthsSection = Main:NewSection("Rebirths")
+
+        AddRebirthToggle(rebirthsSection, "1 Rebirth", 1)
+        AddRebirthToggle(rebirthsSection, "5 Rebirths", 5)
+        AddRebirthToggle(rebirthsSection, "10 Rebirths", 10)
+        AddRebirthToggle(rebirthsSection, "25 Rebirths", 25)
+    else
+        print("nil")
+    end
+end)
+
+function AddRebirthToggle(section, name, amount)
+    section:NewToggle(name, "AutoRebirths " .. amount .. " times", function(innerState)
+        if innerState then
+            AutoRebirth(amount)
+        else
+            print("Toggle Off")
+        end
+    end)
+end
+
+function AutoRebirth(amount)
+    local args = { [1] = amount }
+
+    while rebirthLoopEnabled do
+        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rebirth"):FireServer(unpack(args))
+        wait(1) -- Adjust the wait time as needed
+    end
+end
