@@ -1,61 +1,321 @@
+
 local Library = loadstring(game:HttpGet("https://raw.githubusercontent.com/xHeptc/Kavo-UI-Library/main/source.lua"))()
+
 local Window = Library.CreateLib("Mystic.Lua", "Ocean")
 
-local autoclickerEnabled = false
-local rebirthLoopEnabled = false
-
--- main
+-- Main
 local Main = Window:NewTab("Main")
 local MainSection = Main:NewSection("Main")
 
-local autoclickerToggle = MainSection:NewToggle("AutoClicker", "AutoClicks", function(state)
-    autoclickerEnabled = state
-    if state then
-        AutoClick()
-    end
-end)
+-- Pets
+local Pets = Window:NewTab("Pets")
+local PetsSection = Pets:NewSection("Pets Stuff")
 
-function AutoClick()
-    while autoclickerEnabled do
-        local ReplicatedStorage = game:GetService("ReplicatedStorage")
-        local Events = ReplicatedStorage:WaitForChild("Events")
-        local Click3 = Events:WaitForChild("Click3")
+-- Misc
+local Misc = Window:NewTab("Misc")
+local MiscSection = Misc:NewSection("Some Stuff")
 
-        Click3:FireServer()
-        wait(0.1) -- Adjust the wait time as needed
+-- Stopping The Loops
+local candyCornLoopEnabled = false
+local basicLoopEnabled = false
+local autoClickerLoopEnabled = false
+local rebirth1LoopEnabled = false
+local autoCraftLoopEnabled = false
+local beachEggLoopEnabled = false
+local forestEggLoopEnabled = false
+local atlantisEggLoopEnabled = false
+local desertEggLoopEnabled = false
+local winterEggLoopEnabled = false
+local moonEggLoopEnabled = false
+
+function AutoCraftAll()
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local Functions = ReplicatedStorage:WaitForChild("Functions")
+    local Request = Functions:WaitForChild("Request")
+
+    while autoCraftLoopEnabled do
+        Request:InvokeServer("CraftAll", {})
+        wait(0.5)
     end
 end
 
-local autoRebirthToggle = MainSection:NewToggle("Auto Rebirth", "Auto Rebirths", function(state)
-    rebirthLoopEnabled = state
+function CandyCornEgg()
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local Functions = ReplicatedStorage:WaitForChild("Functions")
+    local Unbox = Functions:WaitForChild("Unbox")
 
+    local unboxArgs = {
+        [1] = "Candy Corn",
+        [2] = "Triple"
+    }
+
+    while candyCornLoopEnabled do
+        Unbox:InvokeServer(unpack(unboxArgs))
+        wait(0.5) -- Adjust the wait time as needed
+    end
+end
+
+function BasicEgg()
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local Functions = ReplicatedStorage:WaitForChild("Functions")
+    local Unbox = Functions:WaitForChild("Unbox")
+
+    local basicArgs = {
+        [1] = "Basic",
+        [2] = "Triple"
+    }
+
+    while basicLoopEnabled do
+        Unbox:InvokeServer(unpack(basicArgs))
+        wait(0.5) -- Adjust the wait time as needed
+    end
+end
+
+
+-- ForestEgg
+function ForestEgg()
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local Functions = ReplicatedStorage:WaitForChild("Functions")
+    local Unbox = Functions:WaitForChild("Unbox")
+
+    local forestArgs = {
+        [1] = "Forest",
+        [2] = "Triple"
+    }
+
+    while forestEggLoopEnabled do
+        Unbox:InvokeServer(unpack(forestArgs))
+        wait(0.5) -- Adjust the wait time as needed
+    end
+end
+
+-- BeachEgg
+function BeachEgg()
+    local ReplicatedStorage = game:GetService("ReplicatedStorage")
+    local Functions = ReplicatedStorage:WaitForChild("Functions")
+    local Unbox = Functions:WaitForChild("Unbox")
+
+    local beachArgs = {
+        [1] = "Beach",
+        [2] = "Triple"
+    }
+
+    while beachEggLoopEnabled do
+        Unbox:InvokeServer(unpack(beachArgs))
+        wait(0.5) -- Adjust the wait time as needed
+    end
+end
+
+
+
+function atlantisEgg()
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Functions = ReplicatedStorage:WaitForChild("Functions")
+local Unbox = Functions:WaitForChild("Unbox")
+
+local atlantisArgs = {
+    [1] = "Atlantis",
+    [2] = "Triple"
+}
+
+while atlantisEggLoopEnabled do
+    Unbox:InvokeServer(unpack(atlantisArgs))
+    wait(0.5) -- Adjust the wait time as needed
+end
+
+end
+
+function desertEgg()
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Functions = ReplicatedStorage:WaitForChild("Functions")
+local Unbox = Functions:WaitForChild("Unbox")
+
+local desertArgs = {
+    [1] = "Desert",
+    [2] = "Triple"
+}
+
+while desertEggLoopEnabled do
+    Unbox:InvokeServer(unpack(desertArgs))
+    wait(0.5) -- Adjust the wait time as needed
+end
+
+end
+
+function winterEgg()
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Functions = ReplicatedStorage:WaitForChild("Functions")
+local Unbox = Functions:WaitForChild("Unbox")
+
+local winterArgs = {
+    [1] = "Winter",
+    [2] = "Triple"
+}
+
+while winterEggLoopEnabled do
+    Unbox:InvokeServer(unpack(winterArgs))
+    wait(0.5) -- Adjust the wait time as needed
+end
+
+end
+
+function moonEgg()        
+local ReplicatedStorage = game:GetService("ReplicatedStorage")
+local Functions = ReplicatedStorage:WaitForChild("Functions")
+local Unbox = Functions:WaitForChild("Unbox")
+
+local moonArgs = {
+    [1] = "Moon",
+    [2] = "Triple"
+}
+
+while moonEggLoopEnabled do
+    Unbox:InvokeServer(unpack(moonArgs))
+    wait(0.5) -- Adjust the wait time as needed
+end
+
+
+end
+
+function CreateAutoHatchOptions()
+local PetsSection = Pets:NewSection("AutoHatching")
+
+    PetsSection:NewToggle("CandyCorn Egg (Event)", "ToggleInfo", function(state)
+        if state then
+            candyCornLoopEnabled = true
+            CandyCornEgg()
+        else
+            candyCornLoopEnabled = false
+            print("Toggle Off")
+        end
+    end)
+
+    PetsSection:NewToggle("Basic Egg", "ToggleInfo", function(state)
+        if state then
+            basicLoopEnabled = true
+            BasicEgg()
+        else
+            basicLoopEnabled = false
+            print("Toggle Off")
+        end
+    end)
+    
+    PetsSection:NewToggle("ForestEgg", "ToggleInfo", function(state)
     if state then
-        local rebirthsSection = Main:NewSection("Rebirths")
-
-        AddRebirthToggle(rebirthsSection, "1 Rebirth", 1)
-        AddRebirthToggle(rebirthsSection, "5 Rebirths", 5)
-        AddRebirthToggle(rebirthsSection, "10 Rebirths", 10)
-        AddRebirthToggle(rebirthsSection, "25 Rebirths", 25)
+    forestEggLoopEnabled = true
+        ForestEgg()
     else
-        print("nil")
+      forestEggLoopEnabled = true
     end
 end)
 
-function AddRebirthToggle(section, name, amount)
-    section:NewToggle(name, "AutoRebirths " .. amount .. " times", function(innerState)
-        if innerState then
-            AutoRebirth(amount)
+PetsSection:NewToggle("BeachEgg", "ToggleInfo", function(state)
+    if state then
+    beachEggLoopEnabled = true
+       BeachEgg() 
+    else
+       beachEggLoopEnabled = false
+    end
+end)
+
+PetsSection:NewToggle("AtlantisEgg", "ToggleInfo", function(state)
+    if state then
+        atlantisEggLoopEnabled = true
+        atlantisEgg()
+    else
+        atlantisEggLoopEnabled = false
+    end
+end)
+
+PetsSection:NewToggle("DesertEgg", "ToggleInfo", function(state)
+    if state then
+        desertEggLoopEnabled = true
+        desertEgg()
+    else
+        desertEggLoopEnabled = false
+    end
+end)
+
+PetsSection:NewToggle("WinterEgg", "ToggleInfo", function(state)
+    if state then
+        winterEggLoopEnabled = true
+        winterEgg()
+    else
+        winterEggLoopEnabled = false
+    end
+end)
+
+PetsSection:NewToggle("MoonEgg", "ToggleInfo", function(state)
+    if state then
+        moonEggLoopEnabled = true
+        moonEgg()
+    else
+        moonEggLoopEnabled = false
+    end
+end)
+
+end
+
+-- AutoClicker Function
+function AutoClickerEnabled()
+    local Click3 = game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Click3")
+
+    -- AutoClicker
+    while autoClickerLoopEnabled do
+        Click3:FireServer()
+        wait(0) -- Adjust the wait time as needed
+    end
+end
+
+-- Rebirth Creation
+function CreateRebirthOptions()
+    MainSection:NewToggle("1 Rebirth", "Auto Rebirths Once", function(state)
+        if state then
+            print("Toggle On")
         else
             print("Toggle Off")
         end
     end)
 end
 
-function AutoRebirth(amount)
-    local args = { [1] = amount }
-
-    while rebirthLoopEnabled do
-        game:GetService("ReplicatedStorage"):WaitForChild("Events"):WaitForChild("Rebirth"):FireServer(unpack(args))
-        wait(1) -- Adjust the wait time as needed
+-- AutoClicker
+MainSection:NewToggle("AutoClicker", "AutoClicks", function(state)
+    if state then
+        autoClickerLoopEnabled = true
+        AutoClickerEnabled()
+    else
+        autoClickerLoopEnabled = false
     end
-end
+end)
+
+-- AutoRebirth
+MainSection:NewToggle("AutoRebirth", "AutoRebirths", function(state)
+    if state then
+        CreateRebirthOptions()
+    else
+        print("Toggle Off")
+    end
+end)
+
+-- Auto Hatch
+PetsSection:NewToggle("Auto Hatch", "AutoHatchs", function(state)
+    if state then
+        CreateAutoHatchOptions()
+    else
+        print("Toggle Off")
+    end
+end)
+
+-- Auto Craft All
+PetsSection:NewToggle("AutoCraft All", "Found Me!", function(state)
+    if state then
+        autoCraftLoopEnabled = true
+        AutoCraftAll()
+    else
+        autoCraftLoopEnabled = false
+    end
+end)
+
+MiscSection:NewSlider("Speed", "Sped", 100, 100, function(s) -- 100 (MaxValue) | 0 (MinValue)
+    game.Players.LocalPlayer.Character.Humanoid.WalkSpeed = s
+end)
